@@ -62,9 +62,9 @@ const serverConfig = require('./config');
 // });
 
 const checkAuth = function(req, res, next) {
-  if (!req.user || !req.isAuthenticated || !req.isAuthenticated()) {
+  /*if (!req.user || !req.isAuthenticated || !req.isAuthenticated()) {
     return res.redirect('/login');
-  }
+  }*/
 
   next();
 };
@@ -124,7 +124,7 @@ app.use(
   })
 );
 
-passport.use(
+/*passport.use(
   new OpenIDConnectStrategy(
     {
       issuer: config.get('oidc').issuer,
@@ -187,7 +187,7 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(user, done) {
   done(null, user);
-});
+});*/
 
 // Start a mock api that uses some hardcoded ids to point to files
 app.get('/api/', (req, res) => {
@@ -217,7 +217,7 @@ app.get('/api/datasets/:datasetId/schemas', (req, res) => {
 });
 
 // Auth routes
-app.get('/authenticate', (req, res, next) => {
+/*app.get('/authenticate', (req, res, next) => {
   passport.authenticate('openidconnect', (err, user) => {
     if (err) {
       return next(err);
@@ -238,7 +238,7 @@ app.get('/authenticate', (req, res, next) => {
 
 app.get('/login', (req, res) => {
   res.render('login');
-});
+});*/
 
 app.get('/debug', checkAuth, (req, res) => {
   const user = req.user || {};
@@ -252,7 +252,7 @@ app.get('/logout', (req, res) => {
   //res.redirect(config.get('azureUserInfo').logoutURL);
 });
 
-app.get('/callback', (req, res, next) => {
+/*app.get('/callback', (req, res, next) => {
   passport.authenticate('openidconnect', err => {
     if (err) {
       return next(err);
@@ -272,7 +272,7 @@ app.get('/callback', (req, res, next) => {
       return res.redirect('/');
     });
   })(req, res, next);
-});
+});*/
 
 // Redirect all other traffic over to the SPA
 // TODO: Use safer JSON stringify
